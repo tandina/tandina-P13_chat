@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS `conversations`  (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender VARCHAR(255),
+    message TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);

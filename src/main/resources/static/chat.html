@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <input type="text" id="messageInput" placeholder="Enter your message">
+    <button onclick="sendMessage()">Send Message</button>
+    <div id="messageArea"></div>
+
+    <script>
+        const socket = new WebSocket('ws://172.20.224.1:1234'); // Remplacez l'URL par votre serveur WebSocket
+
+        socket.onopen = function(event) {
+            console.log('WebSocket connection opened');
+        };
+
+        socket.onmessage = function(event) {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML += `<p>Server says: ${event.data}</p>`;
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            socket.send(message);
+            messageInput.value = '';
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML += `<p>You say: ${message}</p>`;
+        }
+    </script>
+</body>
+</html>
